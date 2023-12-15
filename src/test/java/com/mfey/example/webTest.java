@@ -26,7 +26,7 @@ public class webTest {
 
     }
     @Test
-    public void newTest() {
+    public void newTest() throws InterruptedException {
 
 
         System.setProperty("webdriver.chrome.driver","/Users/michafey/chromedriver-mac-x64/chromedriver");
@@ -39,6 +39,7 @@ public class webTest {
         driver.findElement(By.id("username")).sendKeys("cruz");
         driver.findElement(By.id("password")).click();
         driver.findElement(By.id("password")).sendKeys("password");
+        Thread.sleep(5000);
         driver.findElement(By.id("log-in")).click();
 
         driver.close();
