@@ -1,4 +1,4 @@
-package com.applitools.example;
+package com.mfey.example;
 import org.junit.Test;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
@@ -11,7 +11,7 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.*;
 
-public class AcmeBankTest {
+public class webTest {
     // This JUnit test case class contains everything needed to run a full visual test against the ACME bank site.
     // It runs the test once locally.
     // If you use the Ultrafast Grid, then it performs cross-browser testing against multiple unique browsers.
@@ -26,7 +26,7 @@ public class AcmeBankTest {
 
     }
     @Test
-    public void logIntoBankAccounttest() {
+    public void newTest() {
 
 
         System.setProperty("webdriver.chrome.driver","/Users/michafey/chromedriver-mac-x64/chromedriver");
@@ -36,10 +36,11 @@ public class AcmeBankTest {
 
         driver.manage().window().setSize(new Dimension(1558, 983));
         driver.findElement(By.id("username")).click();
-        driver.findElement(By.id("username")).sendKeys("mike");
+        driver.findElement(By.id("username")).sendKeys("cruz");
         driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys("mike");
+        driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("log-in")).click();
+
         driver.close();
         // Verify the full login page loaded correctly.
         //eyes.check(Target.window().fully().withName("Login page"));
