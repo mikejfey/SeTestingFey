@@ -25,19 +25,23 @@ public class webTest {
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
         ChromeOptions browserOptions = new ChromeOptions();
-       // browserOptions.setPlatformName("iOS");
-        browserOptions.setCapability("platformName", "iOS");
-        browserOptions.setCapability("browserName", "Safari");
-        browserOptions.setCapability("appium:deviceName", "iPhone Simulator");
-        browserOptions.setCapability("appium:platformVersion", "16.1");
-        browserOptions.setCapability("appium:automationName", "XCUITest");
+
+        browserOptions.setCapability("platformName", "Android");
+        browserOptions.setCapability("browserName", "Chrome");
+        // --- to run on iphone simulater ----
+        // browserOptions.setCapability("platformName", "iOS");
+        //browserOptions.setCapability("browserName", "Safari");
+      //  browserOptions.setCapability("appium:deviceName", "iPhone Simulator");
+       // browserOptions.setCapability("appium:platformVersion", "16.1");
+      //  browserOptions.setCapability("appium:automationName", "XCUITest");
+        // ---- to run on real iPhone
      // browserOptions.setCapability("deviceName","iPhone");
         // browserOptions.setBrowserVersion("latest");
         Map<String, Object> sauceOptions = new HashMap<>();
         sauceOptions.put("realDevice", false);
         sauceOptions.put("username", "glossier-auto");
         sauceOptions.put("accessKey", "f6e2fa96-448c-4524-a7d2-c413226c7af1");
-        sauceOptions.put("build", "iphone Sim");
+        sauceOptions.put("build", "android chrome");
         // sauceOptions.put("name", "DemoTest");
         browserOptions.setCapability("sauce:options", sauceOptions);
         URL url = new URL("https://ondemand.us-west-1.saucelabs.com:443/wd/hub");
