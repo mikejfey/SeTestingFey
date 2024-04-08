@@ -17,10 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class webTest {
-    // This JUnit test case class contains everything needed to run a full visual test against the ACME bank site.
-    // It runs the test once locally.
-    // If you use the Ultrafast Grid, then it performs cross-browser testing against multiple unique browsers.
-    // It runs the test from a main function, not through a test framework.
+  
    protected RemoteWebDriver driver;
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
