@@ -22,7 +22,7 @@ public class webTest {
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
         ChromeOptions browserOptions = new ChromeOptions();
-
+        // browserOptions.setCapability("platformName", "Windows 11");
         browserOptions.setCapability("platformName", "Android");
         browserOptions.setCapability("browserName", "Chrome");
         // --- to run on iphone simulater ----
