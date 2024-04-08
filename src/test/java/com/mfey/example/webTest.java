@@ -1,65 +1,68 @@
 package com.mfey.example;
-import org.junit.Test;
-import org.junit.Before;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import java.util.*;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class webTest {
     // This JUnit test case class contains everything needed to run a full visual test against the ACME bank site.
     // It runs the test once locally.
     // If you use the Ultrafast Grid, then it performs cross-browser testing against multiple unique browsers.
     // It runs the test from a main function, not through a test framework.
-    private WebDriver driver;
-    private Map<String, Object> vars;
-    JavascriptExecutor js;
-    @Before
-    public void setUp() {
-       // System.setProperty("webdriver.chrome.driver","/Users/michafey/chromedriver-mac-x64/chromedriver");
-      //  WebDriver driver = new ChromeDriver();
-
+   protected RemoteWebDriver driver;
+    @BeforeMethod
+    public void setup(Method method) throws MalformedURLException {
+        ChromeOptions browserOptions = new ChromeOptions();
+       // browserOptions.setPlatformName("iOS");
+        browserOptions.setCapability("platformName", "iOS");
+        browserOptions.setCapability("browserName", "Safari");
+        browserOptions.setCapability("appium:deviceName", "iPhone Simulator");
+        browserOptions.setCapability("appium:platformVersion", "16.1");
+        browserOptions.setCapability("appium:automationName", "XCUITest");
+     // browserOptions.setCapability("deviceName","iPhone");
+        // browserOptions.setBrowserVersion("latest");
+        Map<String, Object> sauceOptions = new HashMap<>();
+        sauceOptions.put("realDevice", false);
+        sauceOptions.put("username", "glossier-auto");
+        sauceOptions.put("accessKey", "f6e2fa96-448c-4524-a7d2-c413226c7af1");
+        sauceOptions.put("build", "iphone Sim");
+        // sauceOptions.put("name", "DemoTest");
+        browserOptions.setCapability("sauce:options", sauceOptions);
+        URL url = new URL("https://ondemand.us-west-1.saucelabs.com:443/wd/hub");
+        //RemoteWebDriver driver = new RemoteWebDriver(url, browserOptions);
+        driver = new RemoteWebDriver(url, browserOptions);
     }
     @Test
-    public void newTest() throws InterruptedException {
-
-
-        System.setProperty("webdriver.chrome.driver","/Users/michafey/chromedriver-mac-x64/chromedriver");
-        WebDriver driver = new ChromeDriver();
-      System.out.println("running the test");
-        driver.get("https://demo.applitools.com");
-
-        driver.manage().window().setSize(new Dimension(1558, 983));
-        driver.findElement(By.id("username")).click();
-        driver.findElement(By.id("username")).sendKeys("cruz");
-        driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys("password");
-        Thread.sleep(5000);
-        driver.findElement(By.id("log-in")).click();
-
-        driver.close();
-        // Verify the full login page loaded correctly.
-        //eyes.check(Target.window().fully().withName("Login page"));
-
-        // Perform login.
-       // driver.findElement(By.id("username")).sendKeys("applibotxxxxFey");
-       // eyes.check(Target.window().fully().withName("Username entered"));
-       // driver.findElement(By.id("password")).sendKeys("I<3VisualTests");
-      // Thread.sleep(5000);
-       // System.out.println("sleep a couple of seconds");
-      // driver.findElement(By.id("log-in")).click();
-
-        // Verify the full main page loaded correctly.
-        // This snapshot uses LAYOUT match level to avoid differences in closing time text.
-        //eyes.check(Target.window().fully().withName("Main page").layout());
+    public void correctTitle() throws InterruptedException {
+        driver.navigate().to("https://www.glossier.com/collections/brow?parent_collection=makeup");
+        Thread.sleep(500);
+        driver.findElement(By.cssSelector(".swatch--blond")).click();
+        Thread.sleep(500);
+        driver.findElement(By.cssSelector(".swatch--brown")).click();
+        Thread.sleep(500);
+        driver.findElement(By.cssSelector(".swatch--auburn")).click();
+        Thread.sleep(15000);
+        driver.findElement(By.xpath("//span[contains(.,\'Add to bag\')]")).click();
+        Thread.sleep(10000);
+        driver.quit();
     }
-
-
+    //@AfterMethod
+   // public void teardown(ITestResult result) {
+     //   String status = result.isSuccess() ? "passed" : "failed";
+      //  driver.executeScript("sauce:job-result=" + status);
+   // }
 
 
 }
